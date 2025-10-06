@@ -24,8 +24,8 @@ class Category(models.Model):
     
     name = models.CharField(max_length=128)
     title = models.CharField(max_length=255, blank=True, null=True)   
-    description = models.TextField()
-    thumbnail = models.ImageField(upload_to=categorty_thumbnail_directory)
+    description = models.TextField(blank=True, null=True)
+    thumbnail = models.ImageField(upload_to=categorty_thumbnail_directory, blank=True, null=True)
     slug = models.CharField(max_length=128)
 
     def __str__(self):
