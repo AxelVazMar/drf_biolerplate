@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django import forms
 
 from .models import Category, Post, Heading
 
@@ -9,3 +10,24 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_filter = ('parent',)
     ordering = ('name',)
+    readonly_fields = ('id',)
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    
+    list_display = ('title', 'status', 'category', 'created_at', 'updated_at')
+    search_fields = ('title', 'description', 'content', 'keywords', 'slug')
+    prepopulated_fields = {'slug': ('title',)}
+    list_filter = ('status', 'category', 'updated_at')
+    ordering = ('-created_at',)
+    readonly_fields = ('id', 'created_at', 'updated_at')
+    
+    # Giving format to the admin page of Posts
+    fieldsets = (
+        ('General Information', {
+            'fields': ('title', 'description', 'content', 'thumbnail', 'keywords', 'slug', 'category')
+        }),
+        ('Status & Dates', {
+            'fields': ('status', 'created_at', 'updated_at')
+        }),
+    )

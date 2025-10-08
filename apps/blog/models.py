@@ -3,6 +3,8 @@ import uuid
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
+
 def blog_thumnail_directory(instance, filename):
     """
     Function to create a folder for each image of each
@@ -49,7 +51,7 @@ class Post(models.Model):
     
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=255)
-    content = models.TextField()
+    content = RichTextField()
     thumbnail = models.ImageField(upload_to=blog_thumnail_directory)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
 
