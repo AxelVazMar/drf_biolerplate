@@ -1,0 +1,17 @@
+{
+  "name": "Django Blog Dev",
+  "dockerComposeFile": ["../docker-compose.yaml"],
+  "service": "backend",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.pythonPath": "/usr/local/bin/python3"
+      },
+      "extensions": [
+        "ms-python.python",
+        "batisteo.vscode-django"
+      ]
+    }
+  }
+}
