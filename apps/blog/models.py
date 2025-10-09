@@ -61,8 +61,6 @@ class Post(models.Model):
     created_at = models.DateField(default=timezone.now)
     updated_at = models.DateField(auto_now=True)
 
-    views = models.IntegerField(default=0)
-
     status = models.CharField(max_length=10, choices=status_options,default='draft')
 
     objects = models.Manager() # Default manager
@@ -73,6 +71,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+class PostView(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    post = models.ForeignKey(Post, on_delete=models.PROTECT, related_name='post_view')
+    ip_address = models.GenericIPAddressField()
+    timestamp = models.DateField(auto_now_add=True)
     
 class Heading(models.Model):
 

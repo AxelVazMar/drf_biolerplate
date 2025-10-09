@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Post, Category, Heading
+from .models import Post, Category, Heading, PostView
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,12 +25,21 @@ class CategoryListSerializer(serializers.ModelSerializer):
             "slug",
         ]
 
+class PostViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostView
+        fields = "__all__"
+
 class PostSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     headings = HeadingSerializer(many=True)
+    view_count = serializers.SerializerMethodField()
     class Meta:
         model = Post
         fields = "__all__"
+
+    def get_view_count(self, obj):
+        return obj.post_view.count()
 
 class PostListSerializer(serializers.ModelSerializer):
     category = CategoryListSerializer()
@@ -43,5 +52,4 @@ class PostListSerializer(serializers.ModelSerializer):
             "thumbnail",
             "slug",
             "category",
-            "views",
         ]
