@@ -61,6 +61,8 @@ class Post(models.Model):
     created_at = models.DateField(default=timezone.now)
     updated_at = models.DateField(auto_now=True)
 
+    views = models.IntegerField(default=0)
+
     status = models.CharField(max_length=10, choices=status_options,default='draft')
 
     objects = models.Manager() # Default manager
